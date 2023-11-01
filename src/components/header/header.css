@@ -1,0 +1,26 @@
+.header{
+    width: 100%;
+    height: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FF6F00;
+    color: white;
+}
+
+.link{
+    text-decoration: none;
+    color: inherit;
+}
+
+.header__title{
+    text-decoration: none;
+    font-family: roboto;
+    line-height: 1.5em;
+    font-size: 1em;
+    margin-left: .5em;
+}
+
+.header__icon{
+    margin-right: .5em;
+}

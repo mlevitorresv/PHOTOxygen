@@ -1,0 +1,15 @@
+.container{
+    text-align: center;
+    padding: 1em;
+}
+
+.container__searchBar{
+    width: 70%
+}
+
+.container__cards{
+    width: 70%;
+    margin: 1em auto;
+    border: 1px solid black;
+}
+
