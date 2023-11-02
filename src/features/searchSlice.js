@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getSearchThunk } from "./searchThunk";
 
-const searchSlice = createSlice({
+export const searchSlice = createSlice({
     name: 'cards',
     initialState: {
-        status: "idle",
+        status: "",
         data: [],
         error: null
     },
@@ -14,18 +14,19 @@ const searchSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase( getSearchThunk.pending, (state, payload) => {
+        builder.addCase( getSearchThunk.pending, (state, action) => {
             state.status = "pending"
-        }).addCase( getSearchThunk.rejected, (state, payload) => {
+        }).addCase( getSearchThunk.rejected, (state, action) => {
             state.status = "rejected"
-        }).addCase( getSearchThunk.fulfilled, (state, payload) => {
+        }).addCase( getSearchThunk.fulfilled, (state, action) => {
             state.status = "fulfilled"
+            console.log(action)
             state.data = [...state.data, action.payload]
         })
     }
 })
 
-export const getCardData = (state) => state.cards.data
-export const getCardStatus = (state) => state.cards.status
-export const getCardError = (state) => state.cards.error
+export const getCardData = (state) => state.search.data
+export const getCardStatus = (state) => state.search.status
+export const getCardError = (state) => state.search.error
 export const {addCard} = searchSlice.actions

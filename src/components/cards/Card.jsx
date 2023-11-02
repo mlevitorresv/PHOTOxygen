@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
 import './card.css'
 
-export default function Card({card}){
+export default function Card(props){
+  
   return (
     <div className='card'>
-      <img src={card.urls.small} alt={card.alt_description} />
+      <img src={props.card.urls.full} alt={props.card.alt_description} />
     </div>
   )
 }
