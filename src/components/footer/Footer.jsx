@@ -1,7 +1,7 @@
 import React from 'react'
 import './footer.css'
 
-export default function Footer(){
+export const Footer = () => {
   return (
     <footer className='footer'>
       PHOTOxygen

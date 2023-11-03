@@ -2,23 +2,41 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import './container.css'
 import { TextField } from '@mui/material'
-import Card from '../cards/Card'
+import {Card} from '../cards/Card'
 import { useDispatch, useSelector } from 'react-redux';
 import { getSearchThunk } from '../../features/searchThunk';
-import { getCardData, getCardError, getCardStatus } from '../../features/searchSlice'
+import { getCardData, getCardError, getCardStatus, searchSlice } from '../../features/searchSlice'
 
 
-export default function Container(props){
+export default function SearchContainer(props){
 
   const [card, setCard] = useState();
   const [spinner,setSpinner] = useState(false);
   const [error, setError] = useState();
+  const [text, setText] = useState();
 
   const cardData = useSelector(getCardData);
   const cardStatus = useSelector(getCardStatus);
   const cardError = useSelector(getCardError);
   const dispatch = useDispatch();
   const cards = useSelector((state) => state.search)
+
+
+  const handleSearchTextChange = (event) => {
+    setText(event.target.value)
+  }
+
+  const handleKeyPress = (event) => {
+    if(event.key === 'Enter'){
+
+      handleSearch();
+    }
+  }
+
+  const handleSearch = () => {
+    dispatch(getSearchThunk(text))
+  }
+
 
   useEffect(() => {
     if(cardStatus === ""){
@@ -46,7 +64,7 @@ export default function Container(props){
 
   return (
     <div className='container'>
-      <TextField placeholder='Search images...' className='container__searchBar' id='searchBar' />
+      <TextField placeholder='Search images...' className='container__searchBar' id='searchBar' onChange={handleKeyPress}/>
       <div className='container__cards'>
         {cardData && cardData.map((card )=> (
           <Card key={card.id} card={card}/>

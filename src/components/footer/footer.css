@@ -4,6 +4,6 @@
     background-color: #FF6F00;
     color: white;
     padding: .5em 0;
-    position: absolute;
+    position: fixed;
     bottom: 0em;
 }
