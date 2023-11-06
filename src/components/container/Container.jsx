@@ -21,19 +21,14 @@ export default function SearchContainer(props){
   const dispatch = useDispatch();
   const cards = useSelector((state) => state.search)
 
-
-  const handleSearchTextChange = (event) => {
-    setText(event.target.value)
-  }
-
   const handleKeyPress = (event) => {
     if(event.key === 'Enter'){
-
       handleSearch();
     }
   }
 
   const handleSearch = () => {
+    setText(event.target.value)
     dispatch(getSearchThunk(text))
   }
 
@@ -55,14 +50,19 @@ export default function SearchContainer(props){
     else if(cardStatus === "rejected"){
       setError(cardError)
     }
-  }, [dispatch, cardStatus, cardData])
+  }, [dispatch, cardData, text])
 
   
   console.log("Cards en container", cards)
 
   return (
     <div className='container'>
-      <TextField placeholder='Search images...' className='container__searchBar' id='searchBar' onChange={handleKeyPress}/>
+      <TextField
+        placeholder='Search images...'
+        className='container__searchBar'
+        id='searchBar'
+        onKeyDown={handleKeyPress}
+      />
       <div className='container__cards'>
         {cardData && cardData.map((card)=> (
           <Card key={card.id} card={card}/>

@@ -4,11 +4,12 @@ import {Card} from '../cards/Card'
 import { TextField } from '@mui/material'
 import './dashboard.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeFromFavorites } from '../../features/favoriteSlice'
+import { removeFromFavorites, selectFavoriteImages } from '../../features/favoriteSlice'
 
 export const Dashboard = () => {
 
-  const favoriteImages = useSelector((state) => state.favorites)
+  const favoriteImages = useSelector(selectFavoriteImages)
+  
   const dispatch = useDispatch();
   const [editingImage, setEditingImage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -40,7 +41,14 @@ export const Dashboard = () => {
         <option value='height'>height</option>
         <option value='likes'>likes</option>
       </Select>
-      <div className="favorite-images">
+
+      {favoriteImages && favoriteImages.map((image) => (
+          <div key={image.id} className='favorite-image'>
+            <img src={image.urls.full} alt={image.alt_description} />
+          </div>
+        ))}
+
+      {/* <div className="favorite-images">
         {favoriteImages.map((image) => (
           <Card
             key={image.id}
@@ -50,8 +58,8 @@ export const Dashboard = () => {
             onDelete={handleDelete}
           />
         ))}
-      </div>
-      {isEditing && (
+      </div> */}
+      {/* {isEditing && (
         <div className='edit-modal'>
           <h3>Edit Image</h3>
           <input type="text"
@@ -59,7 +67,7 @@ export const Dashboard = () => {
           onChange={(e) => setEditingImage({ ...editingImage, title: e.target.value })}/>
           <button onClick={handleSaveEdit}>Save</button>
         </div>
-      )}
+      )} */}
     </div>
   )
 }

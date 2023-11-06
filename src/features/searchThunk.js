@@ -12,7 +12,6 @@ export const getSearchThunk = createAsyncThunk(
         }
         else{
             url = `https://api.unsplash.com/search/photos?query=${text}&per_page=20&client_id=${key}`
-            console.log("url con query" + url)
         }
         try{
             const request = await fetch(url);
