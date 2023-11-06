@@ -7,7 +7,7 @@ export const Card = (props) => {
   return (
     <div className='card'>
       {props.card.map((card, index) => (
-        <div key={index}>
+        <div key={index} className='card__complete'>
           <img src={card.urls.full} alt={card.alt_description} />
           <div className='favorite-icon'>
             <FavoriteIcon />

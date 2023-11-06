@@ -1,8 +1,12 @@
 .card{
-    width: 200px;
-    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 10%;
+}
+
+.card__complete{
     position: relative;
-    display: inline-block;
 }
 
 .card img{

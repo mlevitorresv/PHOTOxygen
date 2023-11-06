@@ -55,9 +55,7 @@ export default function SearchContainer(props){
     else if(cardStatus === "rejected"){
       setError(cardError)
     }
-
-    dispatch(getSearchThunk());
-  }, [dispatch, cardData])
+  }, [dispatch, cardStatus, cardData])
 
   
   console.log("Cards en container", cards)
