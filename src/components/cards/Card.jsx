@@ -6,10 +6,14 @@ import { addToFavorites, removeFromFavorites } from '../../features/favoriteSlic
 export const Card = (props) => {
   return (
     <div className='card'>
-      <img src={props.card.urls.full} alt={props.card.alt_description} />
-      <div className='favorite-icon'>
-        <FavoriteIcon />
-      </div>
+      {props.card.map((card, index) => (
+        <div key={index}>
+          <img src={card.urls.full} alt={card.alt_description} />
+          <div className='favorite-icon'>
+            <FavoriteIcon />
+          </div>
+        </div>
+      ))}
     </div>
   )
 }

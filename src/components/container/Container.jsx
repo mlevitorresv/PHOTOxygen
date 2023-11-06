@@ -66,7 +66,7 @@ export default function SearchContainer(props){
     <div className='container'>
       <TextField placeholder='Search images...' className='container__searchBar' id='searchBar' onChange={handleKeyPress}/>
       <div className='container__cards'>
-        {cardData && cardData.map((card )=> (
+        {cardData && cardData.map((card)=> (
           <Card key={card.id} card={card}/>
         ))}
       </div>
