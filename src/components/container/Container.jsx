@@ -57,7 +57,7 @@ export default function SearchContainer(props){
     }
 
     dispatch(getSearchThunk());
-  }, [dispatch, cardStatus, cardData])
+  }, [dispatch, cardData])
 
   
   console.log("Cards en container", cards)
