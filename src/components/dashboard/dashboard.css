@@ -15,8 +15,9 @@
 .dashboard__select{
     width: 20%;
     margin-left: 10%;
-    option{
-        cursor: pointer;
-    }
+}
+
+option{
+    cursor: pointer;
 }
 

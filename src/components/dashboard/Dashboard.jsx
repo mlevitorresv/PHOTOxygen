@@ -41,11 +41,17 @@ export const Dashboard = () => {
         <option value='likes'>likes</option>
       </Select>
 
-      {favoriteImages && favoriteImages.map((image) => (
+      {favoriteImages.length > 0 ? (
+        favoriteImages.map((image) => (
           <div key={image.id} className='favorite-image'>
-            <img src={image.urls.full} alt={image.alt_description} />
+            {image.urls && image.urls.full && (
+              <img src={image.urls.full} alt={image.alt_description} />
+            )}
           </div>
-        ))}
+        ))
+      ) : (
+        <p>No tienes imágenes favoritas</p>
+      )}
     </div>
   )
 }

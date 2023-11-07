@@ -13,30 +13,28 @@ export default function SearchContainer(props){
   const [card, setCard] = useState();
   const [spinner,setSpinner] = useState(false);
   const [error, setError] = useState();
-  const [text, setText] = useState();
+  const [query, setQuery] = useState('');
 
   const cardData = useSelector(getCardData);
   const cardStatus = useSelector(getCardStatus);
   const cardError = useSelector(getCardError);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch('');
   const cards = useSelector((state) => state.search)
 
   const handleKeyPress = (event) => {
     if(event.key === 'Enter'){
-      console.log("key press event triggered")
-      handleSearch(event);
+      handleSearch();
     }
   }
 
-  const handleSearch = (event) => {
-    console.log("Searching..." + event.target.value)
-    dispatch(getSearchThunk(text))
+  const handleSearch = () => {
+    dispatch(getSearchThunk(query))
   }
 
 
   useEffect(() => {
     if(cardStatus === ""){
-      dispatch(getSearchThunk())
+      dispatch(getSearchThunk(query))
     }
     else if(cardStatus === "fulfilled"){
       setSpinner(false)
@@ -47,7 +45,7 @@ export default function SearchContainer(props){
     else if(cardStatus === "rejected"){
       setError(cardError)
     }
-  }, [dispatch, cardData, text])
+  }, [dispatch])
 
   
   console.log("Cards en container", cards)
@@ -59,7 +57,7 @@ export default function SearchContainer(props){
         className='container__searchBar'
         id='searchBar'
         onKeyDown={handleKeyPress}
-        onChange={(event) => setText(event.target.value)}
+        onChange={(event) => setQuery(event.target.value)}
       />
       <div className='container__cards'>
         {cardData && cardData.map((card)=> (
