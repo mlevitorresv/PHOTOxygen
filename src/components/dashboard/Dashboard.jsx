@@ -4,6 +4,10 @@ import { TextField } from '@mui/material'
 import './dashboard.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeFromFavorites, selectFavoriteImages } from '../../features/favoriteSlice'
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import DownloadIcon from '@mui/icons-material/Download';
 
 export const Dashboard = () => {
 
@@ -40,18 +44,37 @@ export const Dashboard = () => {
         <option value='height'>height</option>
         <option value='likes'>likes</option>
       </Select>
-
-      {favoriteImages.length > 0 ? (
-        favoriteImages.map((image) => (
-          <div key={image.id} className='favorite-image'>
+      <div className='favorite__content'>        
+        {favoriteImages.map((image) => (
+          <div key={image.id} className='favorite__image'>
             {image.urls && image.urls.full && (
               <img src={image.urls.full} alt={image.alt_description} />
             )}
+            <div className='favorite__icon'>
+              <FavoriteIcon />
+            </div>
+            <div>
+            <p>
+              <br />
+              width: <span>{image.width}</span>
+              <br />
+              height: <span>{image.height}</span>
+              <br />
+              likes: <span>{image.likes}</span>
+              <br />
+              date added: <span>{image.created_at}</span>
+            </p>
+            <div className='favorite__footer'>
+              <EditIcon className='img__icon img__icon-download' />
+              <DownloadIcon className='img__icon img__icon-edit' />
+              <DeleteIcon className='img__icon img__icon-remove' onClick={handleDelete(image)} />
+            </div>
           </div>
-        ))
-      ) : (
-        <p>No tienes imágenes favoritas</p>
-      )}
+          </div>
+        ))}
+        
+      </div>
+      
     </div>
   )
 }

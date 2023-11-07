@@ -21,3 +21,46 @@ option{
     cursor: pointer;
 }
 
+.favorite__content{
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 5% auto;
+}
+
+.favorite__image{
+    position: relative;
+    width: 200px;
+    text-align: left;
+    border: 1px solid black;
+    margin-bottom: 1em;
+}
+
+img{
+    width: 200px;
+    height: 150px;
+}
+
+.favorite__icon{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: red;
+    padding: 5px;
+}
+
+span{
+    color: #FF6F00;
+}
+.favorite__footer{
+    background-color: #FFB300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .2em;
+}
+
+.img__icon{
+    margin: auto .3em;
+}
