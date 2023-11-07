@@ -1,6 +1,5 @@
 import { Select } from '@mui/material'
 import React, { useState } from 'react'
-import {Card} from '../cards/Card'
 import { TextField } from '@mui/material'
 import './dashboard.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -47,27 +46,6 @@ export const Dashboard = () => {
             <img src={image.urls.full} alt={image.alt_description} />
           </div>
         ))}
-
-      {/* <div className="favorite-images">
-        {favoriteImages.map((image) => (
-          <Card
-            key={image.id}
-            image={image}
-            onEdit={handleEdit}
-            onDownload={handleDownload}
-            onDelete={handleDelete}
-          />
-        ))}
-      </div> */}
-      {/* {isEditing && (
-        <div className='edit-modal'>
-          <h3>Edit Image</h3>
-          <input type="text"
-          value={editingImage.title} 
-          onChange={(e) => setEditingImage({ ...editingImage, title: e.target.value })}/>
-          <button onClick={handleSaveEdit}>Save</button>
-        </div>
-      )} */}
     </div>
   )
 }

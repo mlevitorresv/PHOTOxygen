@@ -6,12 +6,14 @@ let url;
 
 export const getSearchThunk = createAsyncThunk(
     "card/getSearchThunk",
-    async (text = "", { rejectWithValue }) => {
+    async (text="", { rejectWithValue }) => {
         if(text === ''){
-            url = `https://api.unsplash.com/photos/random?count=20&client_id=${key}`;
+            url = `https://api.unsplash.com/photos/random?count=18&client_id=${key}`;
+            console.log(`Searching in: ${url}`)
         }
         else{
-            url = `https://api.unsplash.com/search/photos?query=${text}&per_page=20&client_id=${key}`
+            url = `https://api.unsplash.com/search/photos?query=${text}&per_page=18&client_id=${key}`
+            console.log(`Searching in: ${url}`)
         }
         try{
             const request = await fetch(url);

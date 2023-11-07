@@ -5,6 +5,6 @@ import { favoriteSlice } from "../features/favoriteSlice"
 export const store = configureStore({
     reducer:{
         "search": searchSlice.reducer,
-        "favorite":favoriteSlice.reducer
+        "favorite": favoriteSlice.reducer
     }
 })

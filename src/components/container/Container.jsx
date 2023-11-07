@@ -23,12 +23,13 @@ export default function SearchContainer(props){
 
   const handleKeyPress = (event) => {
     if(event.key === 'Enter'){
-      handleSearch();
+      console.log("key press event triggered")
+      handleSearch(event);
     }
   }
 
-  const handleSearch = () => {
-    setText(event.target.value)
+  const handleSearch = (event) => {
+    console.log("Searching..." + event.target.value)
     dispatch(getSearchThunk(text))
   }
 
@@ -39,10 +40,6 @@ export default function SearchContainer(props){
     }
     else if(cardStatus === "fulfilled"){
       setSpinner(false)
-      let listCom = [];
-      cardData.forEach(c => {
-        listCom.push(<Card key={c.id} card={c}/>)
-      });
     }
     else if(cardStatus === "pending"){
       setSpinner(true)
@@ -62,6 +59,7 @@ export default function SearchContainer(props){
         className='container__searchBar'
         id='searchBar'
         onKeyDown={handleKeyPress}
+        onChange={(event) => setText(event.target.value)}
       />
       <div className='container__cards'>
         {cardData && cardData.map((card)=> (

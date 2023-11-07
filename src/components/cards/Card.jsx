@@ -11,9 +11,11 @@ export const Card = (props) => {
     dispatch(addToFavorites(props.card))
   }
 
+  const cards = Array.isArray(props.card) ? props.card : [props.card]
+
   return (
     <div className='card'>
-      {props.card.map((card, index) => (
+      {cards.map((card, index) => (
         <div key={index} className='card__complete'>
           <img src={card.urls.full} alt={card.alt_description} />
           <div className='favorite-icon' onClick={handleAddToFavorites}>
