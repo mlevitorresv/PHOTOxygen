@@ -8,20 +8,17 @@ export const searchSlice = createSlice({
         data: [],
         error: null
     },
-    reducers:{
-        addCard: (state, action) => {
-            state.data.push(action.payload)
-        }
-    },
+    reducers:{},
     extraReducers: (builder) => {
         builder.addCase( getSearchThunk.pending, (state, action) => {
             state.status = "pending"
         }).addCase( getSearchThunk.rejected, (state, action) => {
             state.status = "rejected"
+            state.error = action.error.message
         }).addCase( getSearchThunk.fulfilled, (state, action) => {
             state.status = "fulfilled"
             console.log(action)
-            state.data = [...state.data, action.payload]
+            state.data = action.payload
         })
     }
 })
