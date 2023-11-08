@@ -3,6 +3,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
+import './editImagePopUp.css'
 
 export const EditImagePopUp = ({ open, onClose, image, onSave }) => {
 
@@ -20,37 +21,45 @@ export const EditImagePopUp = ({ open, onClose, image, onSave }) => {
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Edit Image Data</DialogTitle>
       <DialogContent>
-        <label htmlFor="inputWidth">Width</label>
-        <input
-            name='inputWidth'
-            type="number"
-            value={width}
-            onChange={(e) => setWidth(e.target.value)}
-        />
-        <br />
-        <label htmlFor="inputHeight">Height</label>
-        <input
+        <fieldset>
+          <legend>Width</legend>
+          <input
+              name='inputWidth'
+              type="number"
+              value={width}
+              onChange={(e) => setWidth(e.target.value)}
+          />
+        </fieldset>
+        <fieldset>
+          <legend>Height</legend>
+          <input
             name='inputHeight'
             type="number"
             value={height}
             onChange={(e) => setHeight(e.target.value)}
-        />
-        <br />
-        <label htmlFor="inputLikes">Likes</label>
-        <input
+          />
+        </fieldset>
+
+        <fieldset>
+          <legend>Likes</legend>
+          <input
             name='inputLikes'
             type="number"
             value={likes}
             onChange={(e) => setLikes(e.target.value)}
-        />
-        <br />
-        <label htmlFor="inputDate">Date</label>
-        <input
+          />
+        </fieldset>
+
+        <fieldset>
+          <legend>Date</legend>
+          <input
             name='inputDate'
             type="text"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-        />
+          />
+        </fieldset>
+        
         <Button onClick={handleSave}>Save</Button>
       </DialogContent>
     </Dialog>

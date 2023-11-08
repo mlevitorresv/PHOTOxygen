@@ -1,9 +1,9 @@
-import { Select } from '@mui/material'
-import React, { useState } from 'react'
+import { MenuItem, Select } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import { TextField } from '@mui/material'
 import './dashboard.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeFromFavorites, selectFavoriteImages } from '../../features/favoriteSlice'
+import { addToFavorites, removeFromFavorites, selectFavoriteImages } from '../../features/favoriteSlice'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -14,17 +14,36 @@ export const Dashboard = () => {
 
   const [editPopUpOpen, setEditPopUpOpen] = useState(false);
   const [selectedImage, setselectedImage] = useState(null);
-  const [searchDescription, setSearchDescription] = useState('')
+  const [searchDescription, setSearchDescription] = useState('');
 
   const favoriteImages = useSelector(selectFavoriteImages)
+  const [images, setImages] = useState(favoriteImages);
   
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    window.localStorage.setItem('images', JSON.stringify(images))
+  }, [images])
+
+  useEffect(() => {
+    const storedImages = JSON.parse(localStorage.getItem('images'));
+    if(images.length === 0){
+      dispatch(addToFavorites(storedImages))
+    }
+  }, [dispatch])
+
   const handleDownload = image => {
-    const link = document.createElement('a');
-    link.href = image.urls.full;
-    link.download = `${image.id}.jpg`;
-    link.click();
+    fetch(image.urls.full)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${image.id}.jpg`
+        link.click();
+        window.URL.revokeObjectURL(url);
+      }).catch((error) => alert(`Error al descargar la foto: ${error}`))
+
   }
 
   const handleDelete = image => {
@@ -37,10 +56,29 @@ export const Dashboard = () => {
   }
 
   const filteredFavoriteImages = searchDescription ? 
-    favoriteImages.filter((image) =>
-      image.description!== null ? image.description.toLowerCase().includes(searchDescription.toLowerCase()) : console.log('no existen imagenes')
+    images.filter((image) =>
+      image.alt_description!== null ? image.alt_description.toLowerCase().includes(searchDescription.toLowerCase()) : console.log('no existen imagenes')
     )
-    : favoriteImages;
+    : images;
+
+  const handleSort = (e) => {
+    let sortedImages = [...images];
+    switch(e.target.value){
+      case 'date':
+        sortedImages.sort((img1, img2) => new Date(img1.date) - new Date(img2.date))
+      break;
+      case 'width':
+        sortedImages.sort((img1, img2) => img1.width - img2.width)
+      break;
+      case 'height':
+        sortedImages.sort((img1, img2) => img1.height - img2.height)
+      break;
+      case 'likes':
+        sortedImages.sort((img1, img2) => img1.likes - img2.likes)
+      break;
+    }
+    setImages(sortedImages);
+  }
 
   return (
     <div className='dashboard'>
@@ -50,11 +88,11 @@ export const Dashboard = () => {
         id='searchBar'
         onChange={(e) => setSearchDescription(e.target.value)}
       />
-      <Select className='dashboard__select'>
-        <option value='date'>date</option>
-        <option value='width'>width</option>
-        <option value='height'>height</option>
-        <option value='likes'>likes</option>
+      <Select className='dashboard__select' onChange={handleSort}>
+        <MenuItem value='date'>date</MenuItem>
+        <MenuItem value='width'>width</MenuItem>
+        <MenuItem value='height'>height</MenuItem>
+        <MenuItem value='likes'>likes</MenuItem>
       </Select>
       <div className='favorite__content'>        
         {filteredFavoriteImages.map((image) => (
@@ -67,7 +105,7 @@ export const Dashboard = () => {
             </div>
             <div>
               <p className='favorite__info'>
-                desc: <span>{image.description}</span>
+                desc: <span>{image.alt_description}</span>
                 <br />
                 width: <span>{image.width}</span>
                 <br />
