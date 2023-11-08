@@ -19,7 +19,7 @@ export const Card = (props) => {
         <div key={index} className='card__complete'>
           <img src={card.urls.full} alt={card.alt_description} />
           <div className='favorite-icon' onClick={handleAddToFavorites}>
-            <FavoriteIcon />
+            <FavoriteIcon className='icon'/>
           </div>
         </div>
       ))}

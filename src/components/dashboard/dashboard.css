@@ -63,4 +63,9 @@ span{
 
 .img__icon{
     margin: auto .3em;
+    cursor: pointer;
+}
+
+.favorite__info{
+    margin: .5em;
 }

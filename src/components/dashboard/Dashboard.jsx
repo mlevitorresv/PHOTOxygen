@@ -14,26 +14,19 @@ export const Dashboard = () => {
   const favoriteImages = useSelector(selectFavoriteImages)
   
   const dispatch = useDispatch();
-  const [editingImage, setEditingImage] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
-
-
-  const handleEdit = image => {
-    setEditingImage(image)
-    setIsEditing(true)
-  }
-
-  const handleSaveEdit = () => {
-    setIsEditing(false)
-  }
 
   const handleDownload = image => {
-    //
+    const link = document.createElement('a');
+    link.href = image.urls.full;
+    link.download = `${image.id}.jpg`;
+    link.click();
   }
 
   const handleDelete = image => {
-    dispatch(removeFromFavorites(image.id))
+    dispatch(removeFromFavorites(image))
   }
+
+  
 
   return (
     <div className='dashboard'>
@@ -54,22 +47,23 @@ export const Dashboard = () => {
               <FavoriteIcon />
             </div>
             <div>
-            <p>
-              <br />
-              width: <span>{image.width}</span>
-              <br />
-              height: <span>{image.height}</span>
-              <br />
-              likes: <span>{image.likes}</span>
-              <br />
-              date added: <span>{image.created_at}</span>
-            </p>
-            <div className='favorite__footer'>
-              <EditIcon className='img__icon img__icon-download' />
-              <DownloadIcon className='img__icon img__icon-edit' />
-              <DeleteIcon className='img__icon img__icon-remove' onClick={handleDelete(image)} />
+              <p className='favorite__info'>
+                desc: <span>{image.description}</span>
+                <br />
+                width: <span>{image.width}</span>
+                <br />
+                height: <span>{image.height}</span>
+                <br />
+                likes: <span>{image.likes}</span>
+                <br />
+                date added: <span>{image.created_at}</span>
+              </p>
+              <div className='favorite__footer'>
+                <EditIcon className='img__icon img__icon-download' />
+                <DownloadIcon className='img__icon img__icon-edit' onClick={() => handleDownload(image)} />
+                <DeleteIcon className='img__icon img__icon-remove' onClick={() => handleDelete(image)} />
+              </div>
             </div>
-          </div>
           </div>
         ))}
         

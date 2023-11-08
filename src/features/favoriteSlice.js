@@ -8,10 +8,9 @@ export const favoriteSlice = createSlice({
     reducers: {
         addToFavorites: (state, action) => {
             state.images.push(action.payload)
-            console.log("Adding img to favorites")
         },
         removeFromFavorites: (state, action) => {
-            state.images = state.images.filter((image) => image.id != action.payload.id)
+            state.images = state.images.filter((image) => image.id !== action.payload.id)
         }
     }
 })
