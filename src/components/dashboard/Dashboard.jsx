@@ -27,7 +27,7 @@ export const Dashboard = () => {
 
   useEffect(() => {
     const storedImages = JSON.parse(localStorage.getItem('images'));
-    if(images.length === 0){
+    if(storedImages && storedImages.length > 0){
       dispatch(addToFavorites(storedImages))
     }
   }, [dispatch])
@@ -46,7 +46,7 @@ export const Dashboard = () => {
 
   }
 
-  const handleDelete = image => {
+  const handleDelete = (image) => {
     dispatch(removeFromFavorites(image))
   }
 
@@ -65,7 +65,11 @@ export const Dashboard = () => {
     let sortedImages = [...images];
     switch(e.target.value){
       case 'date':
-        sortedImages.sort((img1, img2) => new Date(img1.date) - new Date(img2.date))
+        sortedImages.sort((img1, img2) => {
+          const date1 = new Date(img1.date);
+          const date2 = new Date(img2.date);
+          return date1 - date2;
+        });
       break;
       case 'width':
         sortedImages.sort((img1, img2) => img1.width - img2.width)
