@@ -11,6 +11,16 @@ export const favoriteSlice = createSlice({
         },
         removeFromFavorites: (state, action) => {
             state.images = state.images.filter((image) => image.id !== action.payload.id)
+        },
+        editFromFavorites: (state, action) => {
+            const { id, width, height, date, likes } = action.payload;
+            const imageToEdit = state.data.find((image) => image.id === id);
+            if(imageToEdit){
+                imageToEdit.width = width;
+                imageToEdit.height = height;
+                imageToEdit.created_at = date;
+                imageToEdit.likes = likes;
+            }
         }
     }
 })
