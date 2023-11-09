@@ -33,17 +33,15 @@ export const Dashboard = () => {
 
   useEffect(() => {
     const localFavoritesImages = loadStorage();
-    if(images.length === 0){
+    if(localFavoritesImages.length > 0){
       dispatch(addToFavorites(localFavoritesImages))
     }
+    setImages(favoriteImages)
   }, [dispatch])
-
-
-
 
   useEffect(() => {
     localStorage.setItem("images", JSON.stringify(favoriteImages));
-    setImages([...favoriteImages])
+    setImages(favoriteImages)
   }, [favoriteImages])
 
   console.log('Estado de imágenes en Dashboard:', images);
@@ -128,7 +126,7 @@ export const Dashboard = () => {
         <MenuItem value='likes'>likes</MenuItem>
       </Select>
       <div className='favorite__content'>        
-        {filteredFavoriteImages.map((image) => (
+        {filteredFavoriteImages ? filteredFavoriteImages.map((image) => (
           <div key={image.id} className='favorite__image'>
             {image.urls && image.urls.full && (
               <img src={image.urls.full} alt={image.alt_description} />
@@ -155,7 +153,7 @@ export const Dashboard = () => {
               </div>
             </div>
           </div>
-        ))}
+        )) : <h1>No hay fotos</h1>}
 
         {editPopUpOpen && selectedImage && (
           <EditImagePopUp
