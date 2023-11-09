@@ -18,8 +18,6 @@ export const EditImagePopUp = ({ open, onClose, image, onSave }) => {
       onClose();
     };
 
-    console.log(editedData)
-
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Edit Image Data</DialogTitle>
