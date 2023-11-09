@@ -21,16 +21,20 @@ export const Dashboard = () => {
   
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    window.localStorage.setItem('images', JSON.stringify(images))
-  }, [images])
+  useEffect(()=> {
+    setImages(favoriteImages)
+  }, [favoriteImages])
 
-  useEffect(() => {
-    const storedImages = JSON.parse(localStorage.getItem('images'));
-    if(storedImages && storedImages.length > 0){
-      dispatch(addToFavorites(storedImages))
-    }
-  }, [dispatch])
+  // useEffect(() => {
+  //   window.localStorage.setItem('images', JSON.stringify(images))
+  // }, [images])
+
+  // useEffect(() => {
+  //   const storedImages = JSON.parse(localStorage.getItem('images'));
+  //   if(storedImages && storedImages.length > 0){
+  //     dispatch(addToFavorites(storedImages))
+  //   }
+  // }, [dispatch])
 
   const handleDownload = image => {
     fetch(image.urls.full)
@@ -92,7 +96,8 @@ export const Dashboard = () => {
         id='searchBar'
         onChange={(e) => setSearchDescription(e.target.value)}
       />
-      <Select className='dashboard__select' onChange={handleSort}>
+      <Select className='dashboard__select' onChange={handleSort} value={'ORDER BY'}>
+        <MenuItem value='ORDER BY' >ORDER BY...</MenuItem>
         <MenuItem value='date'>date</MenuItem>
         <MenuItem value='width'>width</MenuItem>
         <MenuItem value='height'>height</MenuItem>
