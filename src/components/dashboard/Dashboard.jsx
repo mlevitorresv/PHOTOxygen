@@ -69,11 +69,7 @@ export const Dashboard = () => {
     let sortedImages = [...images];
     switch(e.target.value){
       case 'date':
-        sortedImages.sort((img1, img2) => {
-          const date1 = new Date(img1.date);
-          const date2 = new Date(img2.date);
-          return date1 - date2;
-        });
+        sortedImages.sort((img1, img2) => new Date(img1.created_at) - new Date(img2.created_at))
       break;
       case 'width':
         sortedImages.sort((img1, img2) => img1.width - img2.width)
