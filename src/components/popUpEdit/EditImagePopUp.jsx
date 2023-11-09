@@ -4,18 +4,21 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import './editImagePopUp.css'
+import { useDispatch } from 'react-redux';
+import { editFromFavorites } from '../../features/favoriteSlice';
 
 export const EditImagePopUp = ({ open, onClose, image, onSave }) => {
 
-    const [width, setWidth] = useState(image.width);
-    const [height, setHeight] = useState(image.height);
-    const [date, setDate] = useState(image.date);
-    const [likes, setLikes] = useState(image.likes);
+    const [editedData, setEditedData] = useState({ ...image });
+    const dispatch = useDispatch();
+    
 
     const handleSave = () => {
-        onSave({ width, height, date, likes });
-        onClose();
-    }
+      dispatch(editFromFavorites(editedData));
+      onClose();
+    };
+
+    console.log(editedData)
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -26,8 +29,8 @@ export const EditImagePopUp = ({ open, onClose, image, onSave }) => {
           <input
               name='inputWidth'
               type="number"
-              value={width}
-              onChange={(e) => setWidth(e.target.value)}
+              value={editedData.width}
+              onChange={(e) => setEditedData({...editedData, width: e.target.value})}
           />
         </fieldset>
         <fieldset>
@@ -35,8 +38,8 @@ export const EditImagePopUp = ({ open, onClose, image, onSave }) => {
           <input
             name='inputHeight'
             type="number"
-            value={height}
-            onChange={(e) => setHeight(e.target.value)}
+            value={editedData.height}
+            onChange={(e) => setEditedData({...editedData, height: e.target.value})}
           />
         </fieldset>
 
@@ -45,8 +48,8 @@ export const EditImagePopUp = ({ open, onClose, image, onSave }) => {
           <input
             name='inputLikes'
             type="number"
-            value={likes}
-            onChange={(e) => setLikes(e.target.value)}
+            value={editedData.likes}
+            onChange={(e) => setEditedData({...editedData, likes: e.target.value})}
           />
         </fieldset>
 
@@ -55,8 +58,8 @@ export const EditImagePopUp = ({ open, onClose, image, onSave }) => {
           <input
             name='inputDate'
             type="text"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            value={editedData.created_at}
+            onChange={(e) => setEditedData({...editedData, created_at: e.target.value})}
           />
         </fieldset>
         

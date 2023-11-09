@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { TextField } from '@mui/material'
 import './dashboard.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToFavorites, removeFromFavorites, selectFavoriteImages } from '../../features/favoriteSlice'
+import { addToFavorites, editFromFavorites, removeAllFavorites, removeFromFavorites, selectFavoriteImages } from '../../features/favoriteSlice'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -25,16 +25,19 @@ export const Dashboard = () => {
     setImages(favoriteImages)
   }, [favoriteImages])
 
-  // useEffect(() => {
-  //   window.localStorage.setItem('images', JSON.stringify(images))
-  // }, [images])
+  useEffect(() => {
+    window.localStorage.setItem('images', JSON.stringify(images))
+  }, [images])
 
-  // useEffect(() => {
-  //   const storedImages = JSON.parse(localStorage.getItem('images'));
-  //   if(storedImages && storedImages.length > 0){
-  //     dispatch(addToFavorites(storedImages))
-  //   }
-  // }, [dispatch])
+  useEffect(() => {
+    const storedImages = JSON.parse(localStorage.getItem('images'));
+    if(storedImages && storedImages.length > 0){
+      dispatch(removeAllFavorites());
+      storedImages.forEach(image => {
+        dispatch(addToFavorites(image))
+      });
+    }
+  }, [dispatch])
 
   const handleDownload = image => {
     fetch(image.urls.full)
@@ -132,11 +135,11 @@ export const Dashboard = () => {
         {editPopUpOpen && selectedImage && (
           <EditImagePopUp
             open={editPopUpOpen}
-            onClose={() => setEditPopUpOpen(false)}
-            image={selectedImage}
-            onSave={(editedData) => {
-              setEditPopUpOpen(false)
+            onClose={() => {
+              setEditPopUpOpen(false);
+              setselectedImage(null)
             }}
+            image={selectedImage}            
           />
         )}
         
