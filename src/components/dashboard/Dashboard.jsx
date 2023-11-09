@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { TextField } from '@mui/material'
 import './dashboard.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToFavorites, editFromFavorites, removeAllFavorites, removeFromFavorites, selectFavoriteImages } from '../../features/favoriteSlice'
+import { addToFavorites, editFromFavorites, removeFromFavorites, selectFavoriteImages } from '../../features/favoriteSlice'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -21,23 +21,33 @@ export const Dashboard = () => {
   
   const dispatch = useDispatch();
 
+  
   useEffect(()=> {
     setImages(favoriteImages)
   }, [favoriteImages])
 
-  useEffect(() => {
-    window.localStorage.setItem('images', JSON.stringify(images))
-  }, [images])
+  const loadStorage = () => {
+    const data = localStorage.getItem("images");
+    return data ? JSON.parse(data) : [];
+  }
 
   useEffect(() => {
-    const storedImages = JSON.parse(localStorage.getItem('images'));
-    if(storedImages && storedImages.length > 0){
-      dispatch(removeAllFavorites());
-      storedImages.forEach(image => {
-        dispatch(addToFavorites(image))
-      });
+    const localFavoritesImages = loadStorage();
+    if(images.length === 0){
+      dispatch(addToFavorites(localFavoritesImages))
     }
   }, [dispatch])
+
+
+
+
+  useEffect(() => {
+    localStorage.setItem("images", JSON.stringify(favoriteImages));
+    setImages([...favoriteImages])
+  }, [favoriteImages])
+
+  console.log('Estado de imágenes en Dashboard:', images);
+
 
   const handleDownload = image => {
     fetch(image.urls.full)
@@ -53,20 +63,29 @@ export const Dashboard = () => {
 
   }
 
+
+
   const handleDelete = (image) => {
     dispatch(removeFromFavorites(image))
   }
+
+
 
   const handleEdit = (image) => {
     setEditPopUpOpen(true);
     setselectedImage(image);
   }
 
+
+
+
   const filteredFavoriteImages = searchDescription ? 
     images.filter((image) =>
       image.alt_description!== null ? image.alt_description.toLowerCase().includes(searchDescription.toLowerCase()) : console.log('no existen imagenes')
     )
     : images;
+
+
 
   const handleSort = (e) => {
     let sortedImages = [...images];
@@ -86,6 +105,12 @@ export const Dashboard = () => {
     }
     setImages(sortedImages);
   }
+
+
+
+
+
+
 
   return (
     <div className='dashboard'>

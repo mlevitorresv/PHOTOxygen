@@ -33,7 +33,7 @@ export default function SearchContainer(props){
 
 
   useEffect(() => {
-    if(cardStatus === ""){
+    if(cardStatus === "idle"){
       dispatch(getSearchThunk(query))
     }
     else if(cardStatus === "fulfilled"){

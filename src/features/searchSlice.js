@@ -4,7 +4,7 @@ import { getSearchThunk } from "./searchThunk";
 export const searchSlice = createSlice({
     name: 'cards',
     initialState: {
-        status: "",
+        status: "idle",
         data: [],
         error: null
     },

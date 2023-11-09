@@ -12,9 +12,6 @@ export const favoriteSlice = createSlice({
         removeFromFavorites: (state, action) => {
             state.images = state.images.filter((image) => image.id !== action.payload.id)
         },
-        removeAllFavorites: (state, action) => {
-            state.images = []
-        },
         editFromFavorites: (state, action) => {
             const { id, width, height, date, likes } = action.payload;
             const imageToEdit = state.images.find((image) => image.id === id);
@@ -29,7 +26,7 @@ export const favoriteSlice = createSlice({
 })
 
 
-export const { addToFavorites, removeFromFavorites, removeAllFavorites, editFromFavorites } = favoriteSlice.actions;
+export const { addToFavorites, removeFromFavorites, editFromFavorites } = favoriteSlice.actions;
 
 export const selectFavoriteImages = (state) => state.favorite.images;
 
