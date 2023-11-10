@@ -6,6 +6,7 @@ import {Card} from '../cards/Card'
 import { useDispatch, useSelector } from 'react-redux';
 import { getSearchThunk } from '../../features/searchThunk';
 import { getCardData, getCardError, getCardStatus, searchSlice } from '../../features/searchSlice'
+import { selectFavoriteImages } from '../../features/favoriteSlice'
 
 
 export default function SearchContainer(props){
@@ -49,6 +50,7 @@ export default function SearchContainer(props){
 
   
   console.log("Cards en container", cards)
+
 
   return (
     <div className='container'>

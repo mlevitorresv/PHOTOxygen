@@ -11,10 +11,16 @@
     position: absolute;
     top: 0;
     right: 0;
-    color: white;
     padding: 5px;
 }
 
+.red{
+    color: red;
+}
+
+.gray{
+    color: gray;
+}
 
 .card .favorite-icon:hover{
     cursor: pointer;
