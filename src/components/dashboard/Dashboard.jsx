@@ -22,10 +22,6 @@ export const Dashboard = () => {
   const dispatch = useDispatch();
 
   
-  useEffect(()=> {
-    setImages(favoriteImages)
-  }, [favoriteImages])
-
   const loadStorage = () => {
     const data = localStorage.getItem("images");
     return data ? JSON.parse(data) : [];
@@ -33,7 +29,7 @@ export const Dashboard = () => {
 
   useEffect(() => {
     const localFavoritesImages = loadStorage();
-    if(localFavoritesImages.length > 0){
+    if(localFavoritesImages.length === 0){
       dispatch(addToFavorites(localFavoritesImages))
     }
     setImages(favoriteImages)

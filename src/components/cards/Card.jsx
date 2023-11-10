@@ -2,18 +2,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import './card.css'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { addToFavorites, removeFromFavorites, selectFavoriteImages } from '../../features/favoriteSlice';
+import { useState } from 'react';
+
 
 export const Card = (props) => {
 
   const dispatch = useDispatch();
   const favoriteImages = useSelector(selectFavoriteImages);
   const isFavorite = favoriteImages.some((favImage) =>favImage.id === props.card.id)
-  
+
   const handleAddToFavorites = () => {
-    if(isFavorite){
-      alert("Esta foto ya está en favoritos")
-    }else{
+    if(!isFavorite){
       dispatch(addToFavorites(props.card))
+    }else{
+      return alert('la imagen ya está en favoritos')
     }
   }
 
@@ -25,7 +27,7 @@ export const Card = (props) => {
       {cards.map((card, index) => (
         <div key={index} className='card__complete'>
           <img src={card.urls.full} alt={card.alt_description} />
-          <div 
+          <div
             className={`favorite-icon ${isFavorite ? 'red' : 'gray'}`}
             onClick={handleAddToFavorites}
           >
