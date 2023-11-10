@@ -11,9 +11,10 @@ export const favoriteSlice = createSlice({
             return state.filter((image) => image.id !== action.payload.id)
         },
         editFromFavorites: (state, action) => {
-            const { id, width, height, date, likes } = action.payload;
+            const { id, width, height, date, likes, alt_description } = action.payload;
             const imageToEdit = state.find((image) => image.id === id);
             if(imageToEdit){
+                imageToEdit.alt_description = alt_description;
                 imageToEdit.width = width;
                 imageToEdit.height = height;
                 imageToEdit.created_at = date;

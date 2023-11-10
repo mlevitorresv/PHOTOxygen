@@ -4,7 +4,9 @@
 }
 
 .dashboard__searchBar{
-    width: 40%
+    width: 40%;
+    background-color: white;
+    border-radius: 5px;
 }
 
 .dashboard__cards{
@@ -15,6 +17,7 @@
 .dashboard__select{
     width: 20%;
     margin-left: 10%;
+    background-color: white;
 }
 
 option{
@@ -41,14 +44,6 @@ option{
 img{
     width: 200px;
     height: 150px;
-}
-
-.favorite__icon{
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: red;
-    padding: 5px;
 }
 
 span{

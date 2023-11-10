@@ -131,9 +131,6 @@ export const Dashboard = () => {
             {image.urls && image.urls.full && (
               <img src={image.urls.full} alt={image.alt_description} />
             )}
-            <div className='favorite__icon'>
-              <FavoriteIcon />
-            </div>
             <div>
               <p className='favorite__info'>
                 desc: <span>{image.alt_description}</span>

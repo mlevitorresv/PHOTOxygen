@@ -22,6 +22,15 @@ export const EditImagePopUp = ({ open, onClose, image, onSave }) => {
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Edit Image Data</DialogTitle>
       <DialogContent>
+      <fieldset>
+          <legend>Desc</legend>
+          <input
+              name='inputDesc'
+              type="text"
+              value={editedData.alt_description}
+              onChange={(e) => setEditedData({...editedData, alt_description: e.target.value})}
+          />
+        </fieldset>
         <fieldset>
           <legend>Width</legend>
           <input
