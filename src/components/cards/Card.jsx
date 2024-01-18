@@ -15,7 +15,7 @@ export const Card = (props) => {
     if(!isFavorite){
       dispatch(addToFavorites(props.card))
     }else{
-      return alert('la imagen ya está en favoritos')
+      dispatch(removeFromFavorites(props.card))
     }
   }
 
