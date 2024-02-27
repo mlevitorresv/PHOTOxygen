@@ -29,10 +29,10 @@ export const Dashboard = () => {
 
   useEffect(() => {
     const localFavoritesImages = loadStorage();
-    if(localFavoritesImages.length === 0){
+    if(favoriteImages.length === 0 && localFavoritesImages.length > 0)
       dispatch(addToFavorites(localFavoritesImages))
-    }
-    setImages(favoriteImages)
+    else
+      setImages(favoriteImages)
   }, [dispatch])
 
   useEffect(() => {
